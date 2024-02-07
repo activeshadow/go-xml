@@ -62,7 +62,7 @@ func (cfg *Config) GenAST(files ...string) (*ast.File, error) {
 	return code.GenAST()
 }
 
-func (cfg *Config) readFiles(files ...string) ([][]byte,error) {
+func (cfg *Config) readFiles(files ...string) ([][]byte, error) {
 	data := make([][]byte, 0, len(files))
 	for _, filename := range files {
 		b, err := ioutil.ReadFile(filename)
@@ -116,29 +116,37 @@ func (cfg *Config) GenCLI(arguments ...string) error {
 		fs            = flag.NewFlagSet("xsdgen", flag.ExitOnError)
 		packageName   = fs.String("pkg", "", "name of the the generated package")
 		output        = fs.String("o", "xsdgen_output.go", "name of the output file")
+		ignoreAttrs   = fs.String("i", "id,href,ref,offset", "comma-separated list of attributes to ignore")
 		followImports = fs.Bool("f", false, "follow import statements; load imported references recursively into scope")
 		verbose       = fs.Bool("v", false, "print verbose output")
 		debug         = fs.Bool("vv", false, "print debug output")
 	)
+
 	fs.Var(&replaceRules, "r", "replacement rule 'regex -> repl' (can be used multiple times)")
 	fs.Var(&xmlns, "ns", "target namespace(s) to generate types for")
 
 	if err = fs.Parse(arguments); err != nil {
 		return err
 	}
+
 	if fs.NArg() == 0 {
 		return errors.New("Usage: xsdgen [-ns xmlns] [-r rule] [-o file] [-pkg pkg] file ...")
 	}
+
 	if *debug {
 		cfg.Option(LogLevel(5))
 	} else if *verbose {
 		cfg.Option(LogLevel(1))
 	}
+
 	cfg.Option(Namespaces(xmlns...))
 	cfg.Option(FollowImports(*followImports))
+	cfg.Option(IgnoreAttributes(strings.Split(*ignoreAttrs, ",")...))
+
 	for _, r := range replaceRules {
 		cfg.Option(replaceAllNamesRegex(r.From, r.To))
 	}
+
 	if *packageName != "" {
 		cfg.Option(PackageName(*packageName))
 	}
@@ -152,5 +160,6 @@ func (cfg *Config) GenCLI(arguments ...string) error {
 	if err != nil {
 		return err
 	}
+
 	return ioutil.WriteFile(*output, data, 0666)
 }

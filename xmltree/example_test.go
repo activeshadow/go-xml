@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"aqwari.net/xml/xmltree"
+	"actshad.dev/go-xml/xmltree"
 )
 
 func ExampleElement_Search() {

@@ -11,7 +11,7 @@
 //
 // The xsd package respects XML name spaces in schema documents, and can
 // parse schema documents that import or include other schema documents.
-package xsd // import "aqwari.net/xml/xsd"
+package xsd // import "actshad.dev/go-xml/xsd"
 
 import (
 	"bytes"
@@ -21,7 +21,7 @@ import (
 	"regexp"
 	"time"
 
-	"aqwari.net/xml/xmltree"
+	"actshad.dev/go-xml/xmltree"
 )
 
 const (

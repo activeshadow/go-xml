@@ -1,5 +1,5 @@
 // Package wsdl parses Web Service Definition Language documents.
-package wsdl // import "aqwari.net/xml/wsdl"
+package wsdl // import "actshad.dev/go-xml/wsdl"
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"aqwari.net/xml/xmltree"
+	"actshad.dev/go-xml/xmltree"
 )
 
 const (

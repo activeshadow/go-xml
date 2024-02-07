@@ -1,4 +1,4 @@
-module aqwari.net/xml
+module actshad.dev/go-xml
 
 go 1.15
 

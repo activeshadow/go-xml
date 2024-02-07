@@ -12,10 +12,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"aqwari.net/xml/internal/gen"
-	"aqwari.net/xml/xmltree"
-	"aqwari.net/xml/xsd"
-	"aqwari.net/xml/xsdgen"
+	"actshad.dev/go-xml/internal/gen"
+	"actshad.dev/go-xml/xmltree"
+	"actshad.dev/go-xml/xsd"
+	"actshad.dev/go-xml/xsdgen"
 )
 
 func glob(pat string) string {

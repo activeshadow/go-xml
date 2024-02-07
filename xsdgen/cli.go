@@ -8,9 +8,9 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"aqwari.net/xml/internal/commandline"
-	"aqwari.net/xml/internal/gen"
-	"aqwari.net/xml/xsd"
+	"actshad.dev/go-xml/internal/commandline"
+	"actshad.dev/go-xml/internal/gen"
+	"actshad.dev/go-xml/xsd"
 )
 
 // GenCode reads all xml schema definitions from the provided

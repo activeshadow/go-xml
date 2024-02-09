@@ -359,11 +359,11 @@ func (cfg *Config) expandComplexTypes(types []xsd.Type) []xsd.Type {
 // type that the user wants included in the Go source. In affect, what we
 // want to do is take the linked list:
 //
-// 	t1 -> t2 -> t3 -> builtin
+//	t1 -> t2 -> t3 -> builtin
 //
 // And produce a set of tuples:
 //
-// 	t1 -> builtin, t2 -> builtin, t3 -> builtin
+//	t1 -> builtin, t2 -> builtin, t3 -> builtin
 //
 // This is a heuristic that tends to generate better-looking Go code.
 func (cfg *Config) flatten(types map[xml.Name]xsd.Type) []xsd.Type {
@@ -674,6 +674,12 @@ func (cfg *Config) genComplexType(t *xsd.ComplexType) ([]spec, error) {
 			}
 		}
 	}
+
+	name := namegen.element(xml.Name{Local: "XMLName"})
+	base, _ := cfg.expr(xsd.QName)
+	tag := fmt.Sprintf(`xml:"%s %s"`, t.Name.Space, t.Name.Local)
+
+	fields = append(fields, name, base, gen.String(tag))
 
 	attributes, elements := cfg.filterFields(t)
 	cfg.debugf("complexType %s: generating struct fields for %d elements and %d attributes",

@@ -78,8 +78,11 @@ func ExampleIgnoreAttributes() {
 	//
 	// package ws
 	//
+	// import "encoding/xml"
+	//
 	// type ArrayOfString struct {
-	// 	Items []string `xml:",any"`
+	// 	XMLName xml.Name `xml:"http://www.example.com/ ArrayOfString"`
+	// 	Items   []string `xml:",any"`
 	// }
 }
 
@@ -108,9 +111,12 @@ func ExampleIgnoreElements() {
 	//
 	// package ws
 	//
+	// import "encoding/xml"
+	//
 	// type Person struct {
-	// 	Name     string `xml:"http://www.example.com/ name"`
-	// 	Deceased bool   `xml:"http://schemas.xmlsoap.org/soap/encoding/ deceased"`
+	// 	XMLName  xml.Name `xml:"http://www.example.com/ Person"`
+	// 	Name     string   `xml:"http://www.example.com/ name"`
+	// 	Deceased bool     `xml:"http://schemas.xmlsoap.org/soap/encoding/ deceased"`
 	// }
 }
 

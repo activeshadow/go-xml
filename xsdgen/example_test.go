@@ -115,8 +115,8 @@ func ExampleIgnoreElements() {
 	//
 	// type Person struct {
 	// 	XMLName  xml.Name `xml:"http://www.example.com/ Person"`
-	// 	Name     string   `xml:"http://www.example.com/ name"`
-	// 	Deceased bool     `xml:"http://schemas.xmlsoap.org/soap/encoding/ deceased"`
+	// 	Name     string   `xml:"name"`
+	// 	Deceased bool     `xml:"deceased"`
 	// }
 }
 

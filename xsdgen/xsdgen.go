@@ -690,7 +690,20 @@ func (cfg *Config) genComplexType(t *xsd.ComplexType) ([]spec, error) {
 		if el.Nillable || el.Optional {
 			options = ",omitempty"
 		}
-		tag := fmt.Sprintf(`xml:"%s %s%s"`, el.Name.Space, el.Name.Local, options)
+
+		qualified := false
+		for _, attr := range el.Attr {
+			if attr.Name.Space == "" && attr.Name.Local == "form" && attr.Value == "qualified" {
+				qualified = true
+			}
+		}
+
+		var tag string
+		if qualified {
+			tag = fmt.Sprintf(`xml:"%s %s%s"`, el.Name.Space, el.Name.Local, options)
+		} else {
+			tag = fmt.Sprintf(`xml:"%s%s"`, el.Name.Local, options)
+		}
 		base, err := cfg.expr(el.Type)
 		if err != nil {
 			return nil, fmt.Errorf("%s element %s: %v", t.Name.Local, el.Name.Local, err)
